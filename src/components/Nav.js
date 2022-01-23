@@ -7,23 +7,53 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-function Nav() {
-  return (
-    <nav>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static'>
-          <Toolbar>
-              <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                Price Watcher
-              </Typography>
-              <Stack spacing={2} direction="row">
-                <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
-                <Link to="signup"><Button variant="outlined" color="inherit">Sign-up</Button></Link>
-              </Stack>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </nav>
-  )
+class Nav extends React.Component {
+
+  logoutUser() {
+    localStorage.removeItem("isAuthenticated");
+    // delete cookie by setting expiry date in the past
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
+  }
+
+
+  // based on logged in status render appropriate buttons
+  navButtons() {
+    let isLoggedIn = localStorage.getItem("isAuthenticated");
+    if(!isLoggedIn) {
+      return (
+        <Stack spacing={2} direction="row">
+          <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
+          <Link to="signup"><Button variant="outlined" color="inherit">Sign-up</Button></Link>
+        </Stack>
+      );
+    }
+
+
+    return (
+      <Link to="/"><Button variant="outlined" color="inherit" onClick={this.logoutUser}>Logout</Button></Link>
+    )
+  }
+
+  render() {
+      return (
+      <nav>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position='static'>
+            <Toolbar>
+                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                  Price Watcher
+                </Typography>
+                
+                
+                  {this.navButtons()}
+
+            </Toolbar>
+          </AppBar>
+        </Box>
+      </nav>
+    )
+  }
+
+
 }
 export default Nav;
