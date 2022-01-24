@@ -91,7 +91,7 @@ class Login extends React.Component {
             <TextField  label="password" variant="outlined" onChange={this.handlePasswordInput} type='password' required/>
           </Stack>
           <br/>
-          <span><Typography variant='caption' >{this.state.errorMessage}</Typography> </span>
+          <Typography variant='caption' >{this.state.errorMessage}</Typography>
 
           <LoadingButton loading={this.state.loginPressed} variant="outlined" type='submit'>Login</LoadingButton>
         </form>
