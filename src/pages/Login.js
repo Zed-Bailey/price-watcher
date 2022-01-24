@@ -39,10 +39,11 @@ class Login extends React.Component {
 
   handleSuccessfulLogin(data) {
     // set returned token as cookie
-    var token = data.token;
-    var expiry = new Date();
-    expiry.setHours = expiry.getHours() + 12;
-    document.cookie = "token=" + token + "; expires=" + expiry.toUTCString() + "; SameSite=Strict";
+    // var token = data.token;
+    // var expiry = new Date();
+    // expiry.setHours = expiry.getHours() + 12;
+    // document.cookie = "token=" + token + "; expires=" + expiry.toUTCString() + "; SameSite=Strict; domain=.app.localhost;";
+
     localStorage.setItem("isAuthenticated", true);
     window.location.href = "/home";
   }
@@ -63,13 +64,16 @@ class Login extends React.Component {
     event.persist()
 
     this.setState({loginPressed: true})
+    // base64 encode the data
     var joined = this.state.email + ':' + this.state.password
     var b64 = btoa(joined)
+    // try to log user in
     fetch("http://localhost:8080/login", {
-      method: "GET",
+      method: "POST",
       headers: {
         'Authorization': b64
-      }
+      },
+      credentials: 'include'
     })
     .then(response => this.handleResponse(response))
     .catch(error => {
