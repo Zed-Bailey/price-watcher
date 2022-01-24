@@ -21,7 +21,8 @@ class ProductCard extends React.Component {
               <Typography color="text.secondary" component="div" align='left'>last checked: {new Date(last_check).toUTCString()}</Typography>
             </CardContent>
             <CardActions>
-              <Button>View</Button>
+              <Button>Details</Button>
+              <a target="_blank" href={url} rel="noopener"><Button>Vist</Button></a>
             </CardActions>
           </Card>
         </Box>
@@ -30,4 +31,6 @@ class ProductCard extends React.Component {
   }
 }
 
+
+// backdrop, click away listner and a card will form the product detail view
 export default ProductCard;
