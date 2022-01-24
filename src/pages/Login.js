@@ -17,10 +17,6 @@ class Login extends React.Component {
     errorMessage: ""
   };
 
-
-
-
-
   handleEmailInput = (event) => {
     event.persist()
     this.setState({
@@ -38,13 +34,8 @@ class Login extends React.Component {
 
 
   handleSuccessfulLogin(data) {
-    // set returned token as cookie
-    // var token = data.token;
-    // var expiry = new Date();
-    // expiry.setHours = expiry.getHours() + 12;
-    // document.cookie = "token=" + token + "; expires=" + expiry.toUTCString() + "; SameSite=Strict; domain=.app.localhost;";
-
     localStorage.setItem("isAuthenticated", true);
+    this.props.loginHandler(true);
     window.location.href = "/home";
   }
 
@@ -52,6 +43,7 @@ class Login extends React.Component {
      let data = response;
      // if error occurred reject promise, this will then be handled by the catch block
      if(!data.ok) {
+       console.log(data.json());
       return Promise.reject(data.json().error);
      } else {
        this.handleSuccessfulLogin(data.json());

@@ -9,17 +9,21 @@ import Typography from '@mui/material/Typography';
 
 class Nav extends React.Component {
 
+ 
+
   logoutUser() {
     localStorage.removeItem("isAuthenticated");
     // delete cookie by setting expiry date in the past
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
+    // update login state
+    this.props.loginHandler(false);
   }
 
 
   // based on logged in status render appropriate buttons
   navButtons() {
-    let isLoggedIn = localStorage.getItem("isAuthenticated");
-    if(!isLoggedIn) {
+    console.log(this.props.isLoggedIn);
+    if(!this.props.isLoggedIn) {
       return (
         <Stack spacing={2} direction="row">
           <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
@@ -38,15 +42,12 @@ class Nav extends React.Component {
       return (
       <nav>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position='static'>
+          <AppBar position='sticky'>
             <Toolbar>
                 <Typography variant="h5" component="div" sx={{ flexGrow: 1 }} align='left'>
                   Price Watcher
                 </Typography>
-                
-                
-                  {this.navButtons()}
-
+                {this.navButtons()}
             </Toolbar>
           </AppBar>
         </Box>

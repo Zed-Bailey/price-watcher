@@ -21,14 +21,31 @@ TODO make nav buttons change based on logged in status
 */
 class App extends React.Component {
 
+  state = {
+    loggedIn : false
+  };
+
+  constructor(props) {
+    super(props);
+    this.updateLoginStatus = this.updateLoginStatus.bind(this);
+  }
+
+
+  updateLoginStatus(to) {
+    this.setState({loggedIn: to});
+    console.log("updated login status")
+  }
+
+
+
   render(){
     return (
       <div className="App">
         <Router>
-        <Nav />
+        <Nav isLoggedIn={this.state.loggedIn} loginHandler={this.updateLoginStatus}/>
           <Routes>
             <Route path="/" element={ <Index /> }/>
-            <Route path="login" element={ <Login /> }/>
+            <Route path="login" element={ <Login loginHandler={this.updateLoginStatus}/> }/>
             <Route path="signup" element={ <Signup /> }/>
             <Route path="home" element={
               <ProtectedRoute redirectTo="/login">
