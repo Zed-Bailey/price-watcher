@@ -1,20 +1,45 @@
-import React from 'react'
+import React from 'react';
+
+import Container from '@mui/material/Container';
+import ProductCard from '../../components/ProductCard';
 
 class Home extends React.Component {
   
-  token = "";
+  state = {
+    products : []
+  };
   
   componentDidMount() {
-    // fetch token from cookie session
+  
     // query api for products
+    fetch('http://localhost:8080/private/items', {
+      method: "GET",
+      credentials :"include"
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      console.log(json);
+      this.setState({products : json});
+    })
+
     // populate ui with products
   }
 
   render() {
     return (
-      <div>
-      home page 
-      </div>
+
+      <Container>
+      <br></br>
+
+      {
+        this.state.products.map(product => {
+          const { ID, item_name, url, last_check, curr_price } = product;
+          return (
+             <ProductCard item_name={item_name} ID={ID} lastChecked={last_check}/>
+          )
+        })
+      }
+      </Container>
     )
   }
 }
