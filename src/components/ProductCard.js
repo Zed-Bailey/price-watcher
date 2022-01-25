@@ -47,6 +47,7 @@ export default function ProductCard(props) {
         <ProductDetail 
           onClose={handleClose}
           open={open}
+          product={props.productInfo}
         />
       </React.Fragment>
     )
