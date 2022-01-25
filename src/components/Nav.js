@@ -15,8 +15,9 @@ class Nav extends React.Component {
     localStorage.removeItem("isAuthenticated");
     // delete cookie by setting expiry date in the past
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
+    
     // update login state
-    this.props.loginHandler(false);
+    // this.props.loginHandler(false);
   }
 
 
