@@ -22,7 +22,7 @@ TODO make nav buttons change based on logged in status
 class App extends React.Component {
 
   state = {
-    loggedIn : false
+    loggedIn : localStorage.getItem("isAuthenticated")
   };
 
   constructor(props) {
@@ -35,7 +35,6 @@ class App extends React.Component {
     this.setState({loggedIn: to});
     console.log("updated login status")
   }
-
 
 
   render(){
