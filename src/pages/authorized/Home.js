@@ -15,7 +15,7 @@ class Home extends React.Component {
     // query api for products
     fetch('http://localhost:8080/private/items', {
       method: "GET",
-      credentials :"include"
+      credentials : "include"
     })
     .then(resp => resp.json())
     .then(json => {
@@ -33,10 +33,10 @@ class Home extends React.Component {
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {
           this.state.products.map(product => {
-            const { ID, item_name, url, last_check, curr_price } = product;
+            const ID  = product.ID;
             return (
                <Grid item xs={2} sm={4} md={4} key={ID}>
-                 <ProductCard product={product}/>
+                 <ProductCard productInfo={product}/>
                </Grid>
             )
           })
