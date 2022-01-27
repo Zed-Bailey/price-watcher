@@ -14,7 +14,18 @@ export default function AddProduct(props) {
   const [name, setName] =  React.useState("");
 
   const createNewItem = () => {
-
+    fetch(
+      "http://localhost:8080/private/items", {
+        method: "POST",
+        credentials : "include",
+        body: JSON.stringify({
+          "url" : url,
+          "item_name": name
+        })
+      }
+    ).then(resp => console.log(resp.json()));
+    onChanged();
+    onClose();
   };
 
   const handleNameUpdate = (e) =>  {
@@ -28,8 +39,6 @@ export default function AddProduct(props) {
   return (
     <Dialog onClose={onClose} open={open}>
       <DialogTitle>Create</DialogTitle>
-        
-
         <DialogContent >
           <TextField label="Item Name" variant="outlined" defaultValue={name} margin='normal' onChange={handleNameUpdate}/>
           <br></br>
@@ -39,7 +48,7 @@ export default function AddProduct(props) {
         
         <DialogActions >
           <Stack direction="row" justifyContent={'flex-start'} spacing={3} alignItems={'center'}>
-            <Button onClick={onClose} color='primary' variant='contained'>Create</Button>
+            <Button onClick={createNewItem} color='primary' variant='contained'>Create</Button>
           </Stack>
         </DialogActions>
   
