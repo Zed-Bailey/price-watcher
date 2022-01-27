@@ -15,7 +15,8 @@ import ProductDetail from './ProductDetail';
 
 export default function ProductCard(props) {
     const [open, setOpen] = React.useState(false);
-
+    
+    
     const handleOpen = () => {
       setOpen((prev) => !prev);
     }
@@ -24,9 +25,8 @@ export default function ProductCard(props) {
       setOpen(false);
     }
 
-    
-    const { item_name, url, last_check, curr_price } = props.productInfo;
-    
+    const {productInfo, onChanged} = props;
+    const { item_name, url, last_check, curr_price } = productInfo;
 
     return(
       <React.Fragment>
@@ -48,6 +48,7 @@ export default function ProductCard(props) {
           onClose={handleClose}
           open={open}
           product={props.productInfo}
+          onChanged={onChanged}
         />
       </React.Fragment>
     )
