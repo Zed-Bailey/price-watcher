@@ -36,7 +36,7 @@ export default function ProductDetail(props) {
         "url" : NewUrl
       })
     }).then(resp => console.log(resp));
-      onChanged()
+      onChanged();
       onClose();
   };
 
