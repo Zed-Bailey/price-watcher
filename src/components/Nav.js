@@ -7,24 +7,23 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-class Nav extends React.Component {
+function Nav(props){
 
- 
+  // const [isLoggedIn, changeLoginStatus] = props;
+  const isLoggedIn = false;
 
-  logoutUser() {
+  const logoutUser = () =>  {
     localStorage.removeItem("isAuthenticated");
     // delete cookie by setting expiry date in the past
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
-    
     // update login state
-    // this.props.loginHandler(false);
+    // changeLoginStatus(false);
   }
 
 
   // based on logged in status render appropriate buttons
-  navButtons() {
-    console.log(this.props.isLoggedIn);
-    if(!this.props.isLoggedIn) {
+  const navButtons = () => {
+    if(!isLoggedIn) {
       return (
         <Stack spacing={2} direction="row">
           <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
@@ -33,14 +32,12 @@ class Nav extends React.Component {
       );
     }
 
-
     return (
-      <Link to="/"><Button variant="outlined" color="inherit" onClick={this.logoutUser}>Logout</Button></Link>
+      <Link to="/"><Button variant="outlined" color="primary" onClick={logoutUser}>Logout</Button></Link>
     )
   }
 
-  render() {
-      return (
+  return (
       <nav>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position='sticky'>
@@ -48,13 +45,12 @@ class Nav extends React.Component {
                 <Typography variant="h5" component="div" sx={{ flexGrow: 1 }} align='left'>
                   Price Watcher
                 </Typography>
-                {this.navButtons()}
+                {navButtons()}
             </Toolbar>
           </AppBar>
         </Box>
       </nav>
-    )
-  }
+    );
 
 
 }
