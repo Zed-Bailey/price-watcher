@@ -10,31 +10,30 @@ import Typography from '@mui/material/Typography';
 function Nav(props){
 
   // const [isLoggedIn, changeLoginStatus] = props;
-  const isLoggedIn = false;
+  const {isLoggedIn, changeLoginStatus} = props;
 
   const logoutUser = () =>  {
     localStorage.removeItem("isAuthenticated");
     // delete cookie by setting expiry date in the past
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
     // update login state
-    // changeLoginStatus(false);
+    changeLoginStatus(false);
   }
 
 
   // based on logged in status render appropriate buttons
   const navButtons = () => {
-    if(!isLoggedIn) {
       return (
-        <Stack spacing={2} direction="row">
-          <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
-          <Link to="signup"><Button variant="outlined" color="inherit">Sign-up</Button></Link>
-        </Stack>
+          isLoggedIn ?
+          <Link to="/"><Button variant="outlined" color="inherit" onClick={logoutUser}>Logout</Button></Link>
+          :
+          <Stack spacing={2} direction="row">
+            <Link to="login"><Button variant="contained" color="inherit">Login</Button></Link>
+            <Link to="signup"><Button variant="outlined" color="inherit">Sign-up</Button></Link>
+          </Stack>
+        
       );
-    }
 
-    return (
-      <Link to="/"><Button variant="outlined" color="primary" onClick={logoutUser}>Logout</Button></Link>
-    )
   }
 
   return (

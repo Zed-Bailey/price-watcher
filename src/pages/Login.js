@@ -5,8 +5,8 @@ import Container from '@mui/material/Container'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Typography from '@mui/material/Typography'
 
-function Login() {
-
+function Login(props) {
+  const { changeLoginStatus } = props
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loginPressed, setLoginPressed] = React.useState(false);
@@ -26,6 +26,7 @@ function Login() {
 
   const handleSuccessfulLogin = () => {
     localStorage.setItem("isAuthenticated", true);
+    changeLoginStatus(true);
     window.location.href = "/home";
   }
 
@@ -56,8 +57,6 @@ function Login() {
         let data = await response.json()
         console.log(data.error);
         setErrorMessage(data.error);
-
-
       }
     })
    
