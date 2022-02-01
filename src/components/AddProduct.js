@@ -23,8 +23,11 @@ export default function AddProduct(props) {
           "item_name": name
         })
       }
-    ).then(resp => console.log(resp.json()));
-    onChanged();
+    ).then(resp =>
+      { 
+        console.log(resp.json());
+        onChanged();
+      });
     onClose();
   };
 
