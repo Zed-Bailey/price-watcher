@@ -24,7 +24,7 @@ export default function ProductCard(props) {
     const handleClose = () => {
       setOpen(false);
     }
-
+    // {new Date(last_check).toUTCString()}
     const {productInfo, onChanged} = props;
     const { item_name, url, last_check, curr_price } = productInfo;
 
@@ -35,11 +35,11 @@ export default function ProductCard(props) {
             <CardContent>
               <Typography variant='h5' gutterBottom align='left'>{item_name}</Typography>
               <Typography variant='h5' gutterBottom align='left'>$ {curr_price}</Typography>
-              <Typography color="text.secondary" component="div" align='left'>last checked: {new Date(last_check).toUTCString()}</Typography>
+              <Typography color="text.secondary" component="div" align='left'>last checked: {last_check}</Typography>
             </CardContent>
             <CardActions>
               <Button onClick={handleOpen}>Details</Button>
-              <a target="_blank" href={url} rel="noopener"><Button>Vist</Button></a>
+              <a target="_blank" href={url} rel="noreferrer"><Button>Vist</Button></a>
             </CardActions>
           </Card>
         </Box>
