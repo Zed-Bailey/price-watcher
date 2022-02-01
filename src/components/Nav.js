@@ -13,11 +13,16 @@ function Nav(props){
   const {isLoggedIn, changeLoginStatus} = props;
 
   const logoutUser = () =>  {
-    localStorage.removeItem("isAuthenticated");
-    // delete cookie by setting expiry date in the past
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
-    // update login state
-    changeLoginStatus(false);
+    fetch('http://localhost:8080/private/logout', {
+      credentials: "include"
+    }).then(resp => {
+      console.log(resp)
+      localStorage.removeItem("isAuthenticated");
+      // delete cookie by setting expiry date in the past
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
+      // update login state
+      changeLoginStatus(false)
+    });
   }
 
 
