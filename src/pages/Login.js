@@ -65,6 +65,7 @@ function Login(props) {
     // TODO fix error messages not showing above login button
   return (
     <Container maxWidth="sm" sx={{marginTop:5}}>
+      <Typography variant='h2' sx={{marginBottom: 5}}>Login</Typography>
       <form onSubmit={handleSubmit}> 
         <Stack spacing={5}>
           <TextField  label="email" variant="outlined" onChange={handleEmailInput} required type='email'/>
