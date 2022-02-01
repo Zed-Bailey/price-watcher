@@ -1,4 +1,4 @@
-import './App.css';
+import'./App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from 'react';
 import Login from './pages/Login';
@@ -10,22 +10,33 @@ import Nav from './components/Nav'
 import ProtectedRoute from './ProtectedRoute';
 
 
-/*
-TODO fetch watching products from api
-TODO add product to watch
-TODO add delete product functionality
-TODO add edit product functionality
+// determine the login status based on the local storage isAuthenticated and if the cookie exists and hasn't expired
+function checkLoginStatus() {
+  let isAuth = localStorage.getItem("isAuthenticated");
+  let cookieExists = getCookie('token');
+  if(isAuth && cookieExists !== null)
+   return true;
+  
+  localStorage.setItem("isAuthenticated", false);
+  return false;
+}
 
-TODO make nav buttons change based on logged in status
+// returns null when the cookie doesn't exist
+// https://stackoverflow.com/a/52406518
+function getCookie(name) {
+  var match = document.cookie.match(RegExp('(?:^|;\\s*)' + name + '=([^;]*)')); 
+  return match ? match[1] : null;
+}
 
-*/
 function App(props) {
   
-  const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem("isAuthenticated"));
+
+  const [loggedIn, setLoggedIn] = React.useState(checkLoginStatus());
 
   const updateLoginState = (to) => {
-    setLoggedIn(to);
+    setLoggedIn(checkLoginStatus());
   };
+
 
     return (
       <div className="App">
@@ -34,7 +45,7 @@ function App(props) {
           <Routes>
             <Route path="/" element={ <Index /> }/>
             <Route path="login" element={ <Login changeLoginStatus={updateLoginState}/> }/>
-            <Route path="signup" element={ <Signup /> }/>
+            <Route path="signup" element={ <Signup changeLoginStatus={updateLoginState} /> }/>
             <Route path="home" element={
               <ProtectedRoute redirectTo="/login">
                 <Home/>
