@@ -12,12 +12,12 @@ function Login(props) {
   const [loginPressed, setLoginPressed] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  const  handleEmailInput = (event) => {
+  const handleEmailInput = (event) => {
     event.persist();
     setEmail(event.target.value);
   }
 
-  const  handlePasswordInput = (event) => {
+  const handlePasswordInput = (event) => {
     event.persist();
     setPassword(event.target.value);
   }
@@ -36,7 +36,6 @@ function Login(props) {
     event.preventDefault();
     event.persist()
 
-    // this.setState({loginPressed: true})
     setLoginPressed(true);
     // base64 encode the data
     var joined = email + ':' + password
